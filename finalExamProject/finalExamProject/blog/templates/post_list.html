@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post List</title>
+    <link rel="stylesheet" href="finalExamCSS.css">
+    <style>
+        /* * {
+            border: green solid;
+        } */
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            cursor: pointer;
+        }
+
+        section {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .post-container {
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        .post-container hr {
+            width: 443px;
+            float: left;
+            clear: both;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    </style>
+</head>
+
+<body style="background-color: antiquewhite;">
+    <header>
+        <h1 style="color: rgb(230, 209, 22);">My Final Exam Project</h1>
+        <nav>
+            {% for post in posts %}
+                <a href="#{{ post.title|slugify }}">{{ post.title }}</a>
+            {% endfor %}
+        </nav>
+    </header>
+
+    <h1>Post List</h1>
+
+    {% for post in posts %}
+        <section id="{{ post.title|slugify }}">
+            <div class="post-container">
+                <h2>{{ post.title }}</h2>
+                <p>Author: {{ post.author }}</p>
+                <p>Created on: {{ post.created_on }}</p>
+                <p style="width: 450px; text-align: justify;">{{ post.content }}</p>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }} Image" width="300" height="250">
+                {% endif %}
+                {% if post.video %}
+                    <video width="150" height="250" controls>
+                        <source src="{{ post.video.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% endif %}
+                <div>
+                    <hr style="width: 443px; float: left; clear: both; padding-left: 5px; padding-right: 5px;">
+                    <hr style="width: 443px; float: left; clear: both; padding-left: 5px; padding-right: 5px;">
+                </div>
+            </div>
+        </section>
+    {% endfor %}
+
+    <footer style="height: 50px; background-color: #333; color: #fff; padding: 10px; width: 100%; text-align: center;">
+        &copy; 2023 My Final Exam Project. All rights reserved.
+    </footer>
+</body>
+</html>
